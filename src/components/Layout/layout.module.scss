@@ -3,8 +3,10 @@
     padding-inline: 4rem;
     padding-block: 1rem;
     display: flex;
-    font-size: 2rem;
-    background-color: #f4f4f4;
+    font-size: 3rem;
+    background-color: rgb(45, 98, 255);
+    justify-content: center;
+    color: white;
     @media (max-width: 480px) {
       font-size: 1.5rem;
     }
@@ -15,8 +17,5 @@
     justify-content: center;
     padding-inline: 4rem;
     padding-block: 1rem;
-  }
-  & > main:has(favoriteButton) {
-    background-color: aqua;
   }
 }
