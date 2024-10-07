@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import { PropertyListingsPage } from '../pages/PropertyListingsPage';
-import { ProtectedRoute } from '../components/ProtectedRoute';
+import { AuthRoutes } from '../components/ProtectedRoute/AuthRoutes';
 
 export const ProtectedRoutes = () => (
   <Routes>
-    <ProtectedRoute>
+    <AuthRoutes>
       <Route path="/property-listings" element={<PropertyListingsPage />} />
-    </ProtectedRoute>
+    </AuthRoutes>
   </Routes>
 );
