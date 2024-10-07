@@ -1,0 +1,30 @@
+.container {
+  gap: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  .images {
+    height: 30vh;
+    width: 100%;
+    position: relative;
+    & > img {
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+
+      height: 100%;
+      width: 100%;
+    }
+    .favoriteButton {
+      cursor: pointer;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+  .details {
+    font-size: 1.2rem;
+    p {
+      margin: 0;
+    }
+  }
+}

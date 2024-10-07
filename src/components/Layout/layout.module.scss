@@ -1,0 +1,22 @@
+.container {
+  & > header {
+    padding-inline: 4rem;
+    padding-block: 1rem;
+    display: flex;
+    font-size: 2rem;
+    background-color: #f4f4f4;
+    @media (max-width: 480px) {
+      font-size: 1.5rem;
+    }
+  }
+  & > main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 4rem;
+    padding-block: 1rem;
+  }
+  & > main:has(favoriteButton) {
+    background-color: aqua;
+  }
+}
