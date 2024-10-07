@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import classes from './property-listings-page.module.scss';
 import { propertyListingsService } from '../../services/properyListing.service';
-import { PropertyListingCard } from '../PropertyListingCard';
+import { PropertyListingCard } from '../../components/PropertyListingCard';
 
 export interface PropertyListingsPageProps {}
 
