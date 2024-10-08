@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosHeaders } from 'axios';
 import { validateEnvs } from '../utils/env.utils';
 
 const { REACT_APP_SERVER_URL } = validateEnvs();
@@ -11,14 +11,17 @@ export const authInstance = axios.create({
  * Async function for making API Request
  * @returns Instance Of Axios Object With Auth Header on it
  */
-// authenticatedInstance.interceptors.request.use(async (config) => {
-//     // const accessToken: string = await acquireAccessToken();
-//     const accessToken = '';
-//     return {
-//         ...config,
-//         headers: {
-//             ...config.headers,
-//             Authorization: `Bearer ${accessToken}`,
-//         },
-//     };
-// });
+authInstance.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem('token');
+  if (!accessToken) return config;
+
+  // If headers are not AxiosHeaders, create an instance
+  if (!(config.headers instanceof AxiosHeaders)) {
+    config.headers = new AxiosHeaders(config.headers || {});
+  }
+
+  // Set the Authorization header
+  config.headers.set('Authorization', `Bearer ${accessToken}`);
+
+  return config;
+});
