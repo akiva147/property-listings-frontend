@@ -1,11 +1,10 @@
 import classes from './form.module.scss';
-import { useNavigate } from 'react-router';
 import { User, UserSchema } from '../../models/user.model';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
-import { authService } from '../../services/auth.service';
 import { Button } from 'antd';
 import { CustomInput } from '../../components/CustomFields/CustomInput';
+import { defaultValues } from '../../constants/form.const';
 
 export interface FormProps {
   variant: 'login' | 'signup';
@@ -16,7 +15,7 @@ export const Form = ({ variant, onSubmit }: FormProps) => {
   const methods = useForm<User>({
     resolver: zodResolver(UserSchema),
     mode: 'onChange',
-    defaultValues: { email: '', password: '' },
+    defaultValues: defaultValues,
   });
 
   const title = variant === 'login' ? 'Login' : 'Signup';

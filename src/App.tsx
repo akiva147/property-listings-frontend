@@ -1,21 +1,26 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { RootErrorBoundary } from './components/RootErrorBoundary';
-import { LoginPage } from './pages/LoginPage';
-import { PropertyListingsPage } from './pages/PropertyListingsPage';
 import { AuthRoutes } from './components/ProtectedRoute/AuthRoutes';
-import { SignupPage } from './pages/SignupPage';
+import {
+  authenticatedRoutes,
+  defaultRoute,
+  publicRoutes,
+} from './constants/routes.const';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />} errorElement={<RootErrorBoundary />}>
-        <Route index element={<Navigate to={'/property-listings'} />} />
+        <Route index element={<Navigate to={defaultRoute} />} />
         <Route element={<AuthRoutes />}>
-          <Route path="/property-listings" element={<PropertyListingsPage />} />
+          {Object.values(authenticatedRoutes).map(({ path, element }) => (
+            <Route key={path} path={path} element={element} />
+          ))}
         </Route>
-        <Route element={<LoginPage />} path="/login" />
-        <Route element={<SignupPage />} path="/signup" />
+        {Object.values(publicRoutes).map(({ path, element }) => (
+          <Route key={path} path={path} element={element} />
+        ))}
       </Route>
     </Routes>
   );

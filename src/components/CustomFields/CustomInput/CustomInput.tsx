@@ -1,4 +1,4 @@
-import { useFormContext } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 import classes from './custom-input.module.scss';
 import { Input, InputProps } from 'antd';
 
@@ -7,15 +7,17 @@ export interface CustomInputProps extends InputProps {
 }
 
 export const CustomInput = ({ fieldName, ...props }: CustomInputProps) => {
-  const { register, formState, getFieldState } = useFormContext();
-
-  const { error } = getFieldState(fieldName, formState);
-  // console.log('CustomInput  error:', error);
+  const {
+    field: fieldValues,
+    fieldState: { error },
+  } = useController({
+    name: fieldName,
+  });
 
   return (
     <div className={classes.container}>
       <main>
-        <Input variant="borderless" {...register(fieldName)} {...props} />
+        <Input variant="borderless" {...props} {...fieldValues} />
       </main>
       {error && <footer>{error.message}</footer>}
     </div>

@@ -5,11 +5,9 @@ import { message } from 'antd';
 interface AuthRoutesProps {}
 
 export const AuthRoutes = (props: AuthRoutesProps) => {
-  const token = localStorage.getItem('token');
+  const { isExpired, isUndefined } = isTokenExpired();
 
-  const isExpired = isTokenExpired(token);
-
-  if (!token) return <Navigate to="/signup" />;
+  if (isUndefined) return <Navigate to="/signup" />;
 
   if (isExpired) {
     message.error({
