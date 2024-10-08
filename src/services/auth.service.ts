@@ -1,14 +1,20 @@
+import axios from 'axios';
 import { authInstance } from './index.service';
+import { validateEnvs } from '../utils/env.utils';
 
 const PREFIX = 'auth';
+const { REACT_APP_SERVER_URL } = validateEnvs();
 
 class AuthService {
-  async login(email: string, password: string) {
+  async login(email: string, password: string): Promise<{ token: string }> {
     try {
-      const response = await authInstance.post(`${PREFIX}/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${REACT_APP_SERVER_URL}/${PREFIX}/login`,
+        {
+          email,
+          password,
+        },
+      );
       return response.data;
     } catch (error) {
       console.error('Error during login', error);
@@ -18,14 +24,22 @@ class AuthService {
 
   async signup(email: string, password: string) {
     try {
-      const response = await authInstance.post(`${PREFIX}/signup`, {
+      await axios.post(`${REACT_APP_SERVER_URL}/${PREFIX}/signup`, {
         email,
         password,
       });
-      return response.data;
     } catch (error) {
       console.error('Error during signup', error);
       throw new Error('Failed to signup');
+    }
+  }
+  async refreshToken(): Promise<{ token: string }> {
+    try {
+      const response = await authInstance.get(`${PREFIX}/refresh-token`);
+      return response.data;
+    } catch (error) {
+      console.error('Error during refresh token', error);
+      throw new Error('Failed to refresh token');
     }
   }
 }

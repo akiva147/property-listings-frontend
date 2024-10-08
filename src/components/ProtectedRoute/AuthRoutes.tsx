@@ -7,14 +7,15 @@ interface AuthRoutesProps {}
 export const AuthRoutes = (props: AuthRoutesProps) => {
   const { isExpired, isUndefined } = isTokenExpired();
 
-  if (isUndefined) return <Navigate to="/signup" />;
+  if (isUndefined) return <Navigate to="/login" />;
 
   if (isExpired) {
     message.error({
       content: 'Your session has expired. Please log in again.',
       key: 'session-expired',
     });
-    return <Navigate to="/signup" />;
+
+    return <Navigate to="/login" />;
   }
 
   return <Outlet />;

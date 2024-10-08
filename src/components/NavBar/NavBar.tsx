@@ -16,6 +16,8 @@ export const NavBar = (props: NavBarProps) => {
   const { isExpired, isUndefined } = isTokenExpired();
 
   const navButtons = useMemo(() => {
+    if ((isExpired || isUndefined) && !publicRoutes[location.pathname])
+      return <span>{'Login'}</span>;
     const pages =
       isExpired || isUndefined
         ? [publicRoutes[location.pathname]]
@@ -44,7 +46,7 @@ export const NavBar = (props: NavBarProps) => {
   return (
     <header className={classes.container}>
       <section className={classes.pages}>{navButtons}</section>
-      {!isExpired && (
+      {(!isExpired || !isUndefined) && (
         <Button variant="link" type="link" onClick={() => signout()}>
           Signout
         </Button>
